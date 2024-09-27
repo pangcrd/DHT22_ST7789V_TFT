@@ -7,7 +7,7 @@
 ## Testing
 <table>
   <tr>
-    <td><img src="https://github.com/pangcrd/DHT22_ST7789V_TFT/blob/main/images/PIC1.jpg" alt="Image 1" width="400"/></td>
-    <td><img src="https://github.com/pangcrd/DHT22_ST7789V_TFT/blob/main/images/fn.gif" alt="Image 2" width="500"/></td>    
+    <td><img src="https://github.com/pangcrd/DHT22_ST7789V_TFT/blob/main/images/PIC1.jpg" alt="Image 1" width="350"/></td>
+    <td><img src="https://github.com/pangcrd/DHT22_ST7789V_TFT/blob/main/images/fn.gif" alt="Image 2" width="400"/></td>    
   </tr>
 </table>
