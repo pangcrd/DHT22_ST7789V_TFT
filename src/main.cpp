@@ -18,7 +18,8 @@
 
 int lastValue = 0;
 unsigned long prevMillis = 0;
-const long myTimer = 5000;  
+const long myTimer = 5000;
+float last_temp, last_hum;  
 
 
 /*My STM32F103C6T6 not enough FLASH memmory for KalmanFilter analog signal*/
@@ -69,31 +70,29 @@ void tempHumi(){
 
    float temperature = dht.readTemperature();
    float humidity = dht.readHumidity();
-  //tft.drawBitmap(169, 35, temperature_ico, 16, 16, 0xFABF);
-  tft.fillRoundRect(65, 59, 110, 45, 3, 0xF49B);
-  tft.setTextSize(3);
-  tft.setTextColor(0xFFE7);
-  tft.setCursor(25, 30);
-  tft.print("TEMPERATURE");
-  //tft.drawBitmap(169, 117, humidity_ico, 11, 16, 0x57FF);
-  tft.fillRoundRect(65, 144, 110, 45, 3, 0xBFBF);
-  tft.setTextSize(3);
-  tft.setTextColor(0x553F);
-  tft.setCursor(50, 115);
-  tft.print("HUMIDITY");
 
+
+   if (temperature != last_temp)
+  {
+  tft.fillRect(82, 70, 90, 30, 0xF49B);
   tft.setTextColor(0xFAAA);
   tft.setTextSize(2.5);
-  tft.setCursor(82, 75);
+  tft.setCursor(88, 75);
   tft.print(temperature,1);         
   tft.print((char)247);     // Symbol '°' 
   tft.print("C"); 
-
+  }
+     if ( humidity != last_hum)
+  {
+  tft.fillRect(80, 150, 70, 30, 0xBFBF);
   tft.setTextColor(0xFABE);
   tft.setTextSize(2.5);
-  tft.setCursor(85, 160);
+  tft.setCursor(90, 160);
   tft.print(humidity,1);
   tft.print("%"); 
+  }
+  last_temp = temperature;
+  last_hum = humidity;
 }
 
 void setup() {
@@ -106,11 +105,26 @@ void setup() {
   tft.fillScreen(BLACK);
   pinMode(POT_PIN, INPUT);
   analogReadResolution(12);
+
+    //tft.drawBitmap(169, 35, temperature_ico, 16, 16, 0xFABF);
+  tft.fillRoundRect(65, 59, 110, 45, 3, 0xF49B);
+  tft.setTextSize(3);
+  tft.setTextColor(0xFFE7);
+  tft.setCursor(25, 30);
+  tft.print("TEMPERATURE");
+ 
+  //tft.drawBitmap(169, 117, humidity_ico, 11, 16, 0x57FF);
+  tft.fillRoundRect(65, 144, 110, 45, 3, 0xBFBF);
+  tft.setTextSize(3);
+  tft.setTextColor(0x553F);
+  tft.setCursor(50, 115);
+  tft.print("HUMIDITY");
+
 }
 
 void loop() {
   unsigned long currentMillis = millis();
-  if (currentMillis - prevMillis >= myTimer) {// Update sensor value after 2 seconds
+  if (currentMillis - prevMillis >= myTimer) {// Update sensor value after 5 seconds
     prevMillis = currentMillis;
     tempHumi();
   }
